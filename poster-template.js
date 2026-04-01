@@ -1,4 +1,4 @@
-// KSIJ Poster HTML Template - Full 7 Days
+// KSIJ Poster HTML Template - COMPLETE 7 Days with Full Layout
 const POSTER_TEMPLATE = `
 <div class="poster" id="poster">
   <style>
@@ -7,7 +7,6 @@ const POSTER_TEMPLATE = `
 .header::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.13)' stroke-width='1'%3E%3Cpolygon points='35,4 42,22 60,22 46,34 51,52 35,41 19,52 24,34 10,22 28,22'/%3E%3Cpolygon points='35,14 40,26 53,26 43,34 47,47 35,39 23,47 27,34 17,26 30,26' stroke-width='0.5' opacity='0.5'/%3E%3Ccircle cx='35' cy='35' r='4' stroke-width='0.8'/%3E%3C/g%3E%3C/svg%3E");background-size:70px 70px;pointer-events:none}
 .header::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,0.18) 0%,transparent 65%);pointer-events:none}
 .header-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:30px 48px 0;gap:18px}
-.brand-row{display:flex;align-items:center;gap:22px}
 .title-block{text-align:center}
 .location{font-size:14px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
 .org-name{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#fff;letter-spacing:1px;line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,0.25)}
@@ -28,7 +27,7 @@ const POSTER_TEMPLATE = `
 .day-band{background:linear-gradient(105deg,#2a9d4e 60%,#34b85f);padding:13px 18px;display:flex;align-items:center;justify-content:space-between;position:relative;overflow:hidden}
 .day-band::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='50' height='50' viewBox='0 0 50 50'%3E%3Cpolygon points='25,3 30,18 45,18 33,27 38,42 25,33 12,42 17,27 5,18 20,18' fill='none' stroke='rgba(255,255,255,0.1)' stroke-width='1'/%3E%3C/svg%3E");background-size:50px 50px;pointer-events:none}
 .day-band .dname{font-family:'Playfair Display',serif;font-size:17px;font-weight:700;color:#fff;position:relative;z-index:1}
-.day-band .dhijri{font-size:17px;font-weight:700;color:#ffffff;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;position:relative;z-index:1}
+.day-band .dhijri{font-size:17px;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase;white-space:nowrap;position:relative;z-index:1}
 .day-body{padding:14px 18px 16px}
 .prayers{width:100%;border-collapse:collapse;margin-bottom:12px;border:1.5px solid #d0ead8;border-radius:6px;overflow:hidden}
 .prayers tr{border-bottom:1.5px solid #d0ead8}
@@ -42,15 +41,16 @@ const POSTER_TEMPLATE = `
 .notice-shahadat p{color:#212121}
 .notice-wiladat{background:linear-gradient(135deg,#ffebee,#ffcdd2);border-left-color:#c62828}
 .notice-wiladat p{color:#b71c1c}
-.prog-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
-.prog-badge{background:linear-gradient(135deg,#2a9d4e,#1e7a3c);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;padding:5px 12px;border-radius:5px;text-transform:uppercase;box-shadow:0 2px 6px rgba(42,157,78,0.3)}
-.prog-badge-shahadat{background:linear-gradient(135deg,#424242,#212121);box-shadow:0 2px 6px rgba(33,33,33,0.4)}
-.prog-badge-wiladat{background:linear-gradient(135deg,#c62828,#b71c1c);box-shadow:0 2px 6px rgba(198,40,40,0.4)}
+.prog-badge{background:linear-gradient(135deg,#2a9d4e,#1e7a3c);color:#fff;font-size:11px;font-weight:800;letter-spacing:1.2px;padding:5px 12px;border-radius:5px;text-transform:uppercase;box-shadow:0 2px 6px rgba(42,157,78,0.3);display:inline-block;margin-bottom:8px}
+.prog-badge-shahadat{background:linear-gradient(135deg,#424242,#212121)}
+.prog-badge-wiladat{background:linear-gradient(135deg,#c62828,#b71c1c)}
 .prog-title{font-size:19px;font-weight:800;color:#1a1a1a;letter-spacing:0.5px;text-transform:uppercase;margin-bottom:10px;line-height:1.3}
 .schedule{margin-bottom:12px}
 .schedule p{font-size:16px;font-weight:600;color:#2d2d2d;letter-spacing:0.3px;line-height:1.65;margin:3px 0}
-.programme-section{display:none;margin-top:12px}
+.programme-section{display:none;margin-top:8px}
 .programme-section.active{display:block}
+.add-programme-btn{background:#e8f5e9;border:2px dashed #a8d8b8;color:#1e7a3c;padding:8px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;margin-top:8px;transition:all 0.2s}
+.add-programme-btn:hover{background:#c8e6c9;border-color:#2a9d4e}
 .hadith-strip-wrap{padding:0 28px 22px}
 .hadith-strip{background:linear-gradient(135deg,#2a9d4e 0%,#1e7a3c 100%);border-radius:12px;padding:24px 32px;box-shadow:0 6px 24px rgba(0,0,0,0.15);border:3px solid #d4a017;position:relative;overflow:hidden}
 .hadith-strip::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60' viewBox='0 0 60 60'%3E%3Cpolygon points='30,5 36,22 53,22 40,32 45,49 30,39 15,49 20,32 7,22 24,22' fill='none' stroke='rgba(255,255,255,0.08)' stroke-width='1'/%3E%3C/svg%3E");background-size:60px 60px;pointer-events:none}
@@ -61,19 +61,15 @@ const POSTER_TEMPLATE = `
 .ftitle{font-size:13px;font-weight:700;color:rgba(255,255,255,0.75);letter-spacing:2px;text-transform:uppercase}
 .fname{font-size:22px;font-weight:800;color:#fff;letter-spacing:1px;text-transform:uppercase}
 .bottom-border{height:10px;background:linear-gradient(90deg,#7a4e00,#d4a017,#f5d155,#ffffff,#f5d155,#d4a017,#7a4e00)}
-.add-programme-btn{background:#e2e8f0;border:2px dashed #cbd5e0;color:#4a5568;padding:8px 12px;border-radius:6px;font-size:13px;font-weight:600;cursor:pointer;text-align:center;margin-top:8px;transition:all 0.2s}
-.add-programme-btn:hover{background:#cbd5e0;border-color:#a0aec0}
   </style>
   
   <div class="top-border"></div>
   
   <div class="header">
     <div class="header-content">
-      <div class="brand-row">
-        <div class="title-block">
-          <div class="location">KAMPALA · UGANDA</div>
-          <h1 class="org-name">Khoja Shia Ithnasheri Jamat</h1>
-        </div>
+      <div class="title-block">
+        <div class="location">KAMPALA · UGANDA</div>
+        <h1 class="org-name">Khoja Shia Ithnasheri Jamat</h1>
       </div>
       <div class="weekly-wrap">
         <h2 class="weekly">Weekly</h2>
@@ -97,11 +93,8 @@ const POSTER_TEMPLATE = `
   <div class="body-wrap">
     <div class="content-grid">
       
-      <!-- LEFT COLUMN -->
       <div class="col-panel">
-        
-        <!-- Monday -->
-        <div class="day-section" data-day="monday">
+        <div class="day-section">
           <div class="day-band">
             <div class="dname" contenteditable="true">Monday 22nd Dec. 2025</div>
             <div class="dhijri" contenteditable="true">1ST RAJAB 1447</div>
@@ -112,22 +105,17 @@ const POSTER_TEMPLATE = `
               <tr><td class="pl">Zohrain Adhan</td><td class="pt" contenteditable="true">12:49 P.M.</td></tr>
               <tr><td class="pl">Maghrebain Prayers</td><td class="pt" contenteditable="true">07:06 P.M.</td></tr>
             </table>
-            <div class="add-programme-btn" onclick="toggleProgramme('monday')">+ Add Programme</div>
-            <div class="programme-section" id="prog-monday">
-              <div class="prog-head">
-                <span class="prog-badge" contenteditable="true">PROGRAMME</span>
-              </div>
+            <div class="add-programme-btn" onclick="toggleProgramme('mon')">+ Add Programme</div>
+            <div class="programme-section" id="prog-mon">
+              <span class="prog-badge" contenteditable="true">PROGRAMME</span>
               <div class="prog-title" contenteditable="true">Programme Title</div>
-              <div class="schedule">
-                <p contenteditable="true">8:15 P.M. Programme Item</p>
-              </div>
-              <div class="notice"><p contenteditable="true">Programme details here</p></div>
+              <div class="schedule"><p contenteditable="true">8:15 P.M. Programme Item</p></div>
+              <div class="notice"><p contenteditable="true">Details here</p></div>
             </div>
           </div>
         </div>
         
-        <!-- Wednesday -->
-        <div class="day-section" data-day="wednesday">
+        <div class="day-section">
           <div class="day-band">
             <div class="dname" contenteditable="true">Wednesday 24th Dec. 2025</div>
             <div class="dhijri" contenteditable="true">3RD RAJAB 1447</div>
@@ -138,22 +126,17 @@ const POSTER_TEMPLATE = `
               <tr><td class="pl">Zohrain Adhan</td><td class="pt" contenteditable="true">12:50 P.M.</td></tr>
               <tr><td class="pl">Maghrebain Prayers</td><td class="pt" contenteditable="true">07:07 P.M.</td></tr>
             </table>
-            <div class="add-programme-btn" onclick="toggleProgramme('wednesday')">+ Add Programme</div>
-            <div class="programme-section" id="prog-wednesday">
-              <div class="prog-head">
-                <span class="prog-badge" contenteditable="true">PROGRAMME</span>
-              </div>
+            <div class="add-programme-btn" onclick="toggleProgramme('wed')">+ Add Programme</div>
+            <div class="programme-section" id="prog-wed">
+              <span class="prog-badge" contenteditable="true">PROGRAMME</span>
               <div class="prog-title" contenteditable="true">Programme Title</div>
-              <div class="schedule">
-                <p contenteditable="true">8:15 P.M. Programme Item</p>
-              </div>
-              <div class="notice"><p contenteditable="true">Programme details here</p></div>
+              <div class="schedule"><p contenteditable="true">8:15 P.M. Programme Item</p></div>
+              <div class="notice"><p contenteditable="true">Details here</p></div>
             </div>
           </div>
         </div>
         
-        <!-- Friday -->
-        <div class="day-section" data-day="friday">
+        <div class="day-section">
           <div class="day-band">
             <div class="dname" contenteditable="true">Friday 26th Dec. 2025</div>
             <div class="dhijri" contenteditable="true">5TH RAJAB 1447</div>
@@ -165,22 +148,17 @@ const POSTER_TEMPLATE = `
               <tr><td class="pl">Maghrebain Prayers</td><td class="pt" contenteditable="true">07:08 P.M.</td></tr>
             </table>
             <div class="notice"><p contenteditable="true">Followed by Khutbah and Juma Prayers</p></div>
-            <div class="add-programme-btn" onclick="toggleProgramme('friday')">+ Add Programme</div>
-            <div class="programme-section" id="prog-friday">
-              <div class="prog-head">
-                <span class="prog-badge" contenteditable="true">PROGRAMME</span>
-              </div>
+            <div class="add-programme-btn" onclick="toggleProgramme('fri')">+ Add Programme</div>
+            <div class="programme-section" id="prog-fri">
+              <span class="prog-badge" contenteditable="true">PROGRAMME</span>
               <div class="prog-title" contenteditable="true">Programme Title</div>
-              <div class="schedule">
-                <p contenteditable="true">8:15 P.M. Programme Item</p>
-              </div>
-              <div class="notice"><p contenteditable="true">Programme details here</p></div>
+              <div class="schedule"><p contenteditable="true">8:15 P.M. Programme Item</p></div>
+              <div class="notice"><p contenteditable="true">Details here</p></div>
             </div>
           </div>
         </div>
         
-        <!-- Sunday -->
-        <div class="day-section" data-day="sunday">
+        <div class="day-section">
           <div class="day-band">
             <div class="dname" contenteditable="true">Sunday 28th Dec. 2025</div>
             <div class="dhijri" contenteditable="true">7TH RAJAB 1447</div>
@@ -191,27 +169,19 @@ const POSTER_TEMPLATE = `
               <tr><td class="pl">Zohrain Adhan</td><td class="pt" contenteditable="true">12:52 P.M.</td></tr>
               <tr><td class="pl">Maghrebain Prayers</td><td class="pt" contenteditable="true">07:09 P.M.</td></tr>
             </table>
-            <div class="add-programme-btn" onclick="toggleProgramme('sunday')">+ Add Programme</div>
-            <div class="programme-section" id="prog-sunday">
-              <div class="prog-head">
-                <span class="prog-badge" contenteditable="true">PROGRAMME</span>
-              </div>
+            <div class="add-programme-btn" onclick="toggleProgramme('sun')">+ Add Programme</div>
+            <div class="programme-section" id="prog-sun">
+              <span class="prog-badge" contenteditable="true">PROGRAMME</span>
               <div class="prog-title" contenteditable="true">Programme Title</div>
-              <div class="schedule">
-                <p contenteditable="true">8:15 P.M. Programme Item</p>
-              </div>
-              <div class="notice"><p contenteditable="true">Programme details here</p></div>
+              <div class="schedule"><p contenteditable="true">8:15 P.M. Programme Item</p></div>
+              <div class="notice"><p contenteditable="true">Details here</p></div>
             </div>
           </div>
         </div>
-        
       </div>
       
-      <!-- RIGHT COLUMN -->
       <div class="col-panel">
-        
-        <!-- Tuesday -->
-        <div class="day-section" data-day="tuesday">
+        <div class="day-section">
           <div class="day-band">
             <div class="dname" contenteditable="true">Tuesday 23rd Dec. 2025</div>
             <div class="dhijri" contenteditable="true">2ND RAJAB 1447</div>
@@ -222,22 +192,17 @@ const POSTER_TEMPLATE = `
               <tr><td class="pl">Zohrain Adhan</td><td class="pt" contenteditable="true">12:49 P.M.</td></tr>
               <tr><td class="pl">Maghrebain Prayers</td><td class="pt" contenteditable="true">07:07 P.M.</td></tr>
             </table>
-            <div class="add-programme-btn" onclick="toggleProgramme('tuesday')">+ Add Programme</div>
-            <div class="programme-section" id="prog-tuesday">
-              <div class="prog-head">
-                <span class="prog-badge" contenteditable="true">PROGRAMME</span>
-              </div>
+            <div class="add-programme-btn" onclick="toggleProgramme('tue')">+ Add Programme</div>
+            <div class="programme-section" id="prog-tue">
+              <span class="prog-badge" contenteditable="true">PROGRAMME</span>
               <div class="prog-title" contenteditable="true">Programme Title</div>
-              <div class="schedule">
-                <p contenteditable="true">8:15 P.M. Programme Item</p>
-              </div>
-              <div class="notice"><p contenteditable="true">Programme details here</p></div>
+              <div class="schedule"><p contenteditable="true">8:15 P.M. Programme Item</p></div>
+              <div class="notice"><p contenteditable="true">Details here</p></div>
             </div>
           </div>
         </div>
         
-        <!-- Thursday -->
-        <div class="day-section" data-day="thursday">
+        <div class="day-section">
           <div class="day-band">
             <div class="dname" contenteditable="true">Thursday 25th Dec. 2025</div>
             <div class="dhijri" contenteditable="true">4TH RAJAB 1447</div>
@@ -248,22 +213,17 @@ const POSTER_TEMPLATE = `
               <tr><td class="pl">Zohrain Adhan</td><td class="pt" contenteditable="true">12:50 P.M.</td></tr>
               <tr><td class="pl">Maghrebain Prayers</td><td class="pt" contenteditable="true">07:08 P.M.</td></tr>
             </table>
-            <div class="add-programme-btn" onclick="toggleProgramme('thursday')">+ Add Programme</div>
-            <div class="programme-section" id="prog-thursday">
-              <div class="prog-head">
-                <span class="prog-badge" contenteditable="true">PROGRAMME</span>
-              </div>
+            <div class="add-programme-btn" onclick="toggleProgramme('thu')">+ Add Programme</div>
+            <div class="programme-section" id="prog-thu">
+              <span class="prog-badge" contenteditable="true">PROGRAMME</span>
               <div class="prog-title" contenteditable="true">Programme Title</div>
-              <div class="schedule">
-                <p contenteditable="true">8:15 P.M. Programme Item</p>
-              </div>
-              <div class="notice"><p contenteditable="true">Programme details here</p></div>
+              <div class="schedule"><p contenteditable="true">8:15 P.M. Programme Item</p></div>
+              <div class="notice"><p contenteditable="true">Details here</p></div>
             </div>
           </div>
         </div>
         
-        <!-- Saturday -->
-        <div class="day-section" data-day="saturday">
+        <div class="day-section">
           <div class="day-band">
             <div class="dname" contenteditable="true">Saturday 27th Dec. 2025</div>
             <div class="dhijri" contenteditable="true">6TH RAJAB 1447</div>
@@ -274,20 +234,15 @@ const POSTER_TEMPLATE = `
               <tr><td class="pl">Zohrain Adhan</td><td class="pt" contenteditable="true">12:51 P.M.</td></tr>
               <tr><td class="pl">Maghrebain Prayers</td><td class="pt" contenteditable="true">07:09 P.M.</td></tr>
             </table>
-            <div class="add-programme-btn" onclick="toggleProgramme('saturday')">+ Add Programme</div>
-            <div class="programme-section" id="prog-saturday">
-              <div class="prog-head">
-                <span class="prog-badge" contenteditable="true">PROGRAMME</span>
-              </div>
+            <div class="add-programme-btn" onclick="toggleProgramme('sat')">+ Add Programme</div>
+            <div class="programme-section" id="prog-sat">
+              <span class="prog-badge" contenteditable="true">PROGRAMME</span>
               <div class="prog-title" contenteditable="true">Programme Title</div>
-              <div class="schedule">
-                <p contenteditable="true">8:15 P.M. Programme Item</p>
-              </div>
-              <div class="notice"><p contenteditable="true">Programme details here</p></div>
+              <div class="schedule"><p contenteditable="true">8:15 P.M. Programme Item</p></div>
+              <div class="notice"><p contenteditable="true">Details here</p></div>
             </div>
           </div>
         </div>
-        
       </div>
       
     </div>
@@ -306,7 +261,7 @@ const POSTER_TEMPLATE = `
       <div class="fname">KSIJ KAMPALA</div>
     </div>
     <div class="footer-right">
-      <div style="font-size:9px;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase;">Facebook · Instagram · YouTube</div>
+      <div style="font-size:9px;font-weight:700;color:#fff;letter-spacing:1.5px;text-transform:uppercase;">FACEBOOK · INSTAGRAM · YOUTUBE</div>
     </div>
   </div>
   
@@ -314,11 +269,9 @@ const POSTER_TEMPLATE = `
 </div>
 `;
 
-// Toggle programme visibility
 function toggleProgramme(day) {
   const progSection = document.getElementById('prog-' + day);
   const btn = event.target;
-  
   if (progSection.classList.contains('active')) {
     progSection.classList.remove('active');
     btn.textContent = '+ Add Programme';
