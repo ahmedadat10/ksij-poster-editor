@@ -1,4 +1,4 @@
-// KSIJ Poster Editor App
+// KSIJ Poster Editor App - Enhanced Version
 let currentContextTarget = null;
 
 // Load template on page load
@@ -25,9 +25,12 @@ async function downloadPNG() {
     return;
   }
   
-  // Remove contenteditable before capturing
+  // Remove contenteditable and hide buttons before capturing
   const editables = poster.querySelectorAll('[contenteditable]');
+  const buttons = poster.querySelectorAll('.add-programme-btn, .theme-switch-btn');
+  
   editables.forEach(el => el.removeAttribute('contenteditable'));
+  buttons.forEach(btn => btn.style.display = 'none');
   
   try {
     const canvas = await html2canvas(poster, {
@@ -49,8 +52,9 @@ async function downloadPNG() {
     console.error('Download error:', error);
     alert('Error downloading PNG. Please try again.');
   } finally {
-    // Restore contenteditable
+    // Restore contenteditable and buttons
     editables.forEach(el => el.setAttribute('contenteditable', 'true'));
+    buttons.forEach(btn => btn.style.display = '');
   }
 }
 
@@ -106,4 +110,33 @@ function changeTheme(theme) {
   }
   
   console.log(`✅ Theme changed to ${theme}`);
+}
+
+function toggleProgramme(day) {
+  const progSection = document.getElementById('prog-' + day);
+  const btn = event.target;
+  
+  if (progSection.classList.contains('active')) {
+    progSection.classList.remove('active');
+    btn.textContent = '+ Add Programme';
+  } else {
+    progSection.classList.add('active');
+    btn.textContent = '- Remove Programme';
+  }
+}
+
+function addNoticeBox(day) {
+  const dayBody = event.target.closest('.day-body');
+  const newNotice = document.createElement('div');
+  newNotice.className = 'notice';
+  newNotice.innerHTML = '<p contenteditable="true">New notice or detail here</p>';
+  dayBody.insertBefore(newNotice, event.target);
+}
+
+function addScheduleItem(day) {
+  const scheduleDiv = event.target.previousElementSibling;
+  const newItem = document.createElement('p');
+  newItem.contentEditable = 'true';
+  newItem.textContent = '8:00 P.M. New Programme Item';
+  scheduleDiv.appendChild(newItem);
 }
