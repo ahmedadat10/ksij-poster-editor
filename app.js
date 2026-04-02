@@ -1,15 +1,18 @@
-// KSIJ Poster Editor App - Enhanced Version
+// KSIJ Poster Editor App - With Drag & Drop Day Reordering
 let currentContextTarget = null;
+let draggedElement = null;
 
-// Load template on page load
 window.addEventListener('DOMContentLoaded', () => {
   loadTemplate();
   setupContextMenu();
+  setupDragAndDrop();
 });
 
 function loadTemplate() {
   document.getElementById('editorWrapper').innerHTML = POSTER_TEMPLATE;
   console.log('✅ Template loaded');
+  // Re-setup drag and drop after template loads
+  setTimeout(() => setupDragAndDrop(), 100);
 }
 
 function resetAll() {
@@ -25,12 +28,17 @@ async function downloadPNG() {
     return;
   }
   
-  // Remove contenteditable and hide buttons before capturing
+  // Remove contenteditable, hide buttons, and remove drag indicators
   const editables = poster.querySelectorAll('[contenteditable]');
-  const buttons = poster.querySelectorAll('.add-programme-btn, .theme-switch-btn');
+  const buttons = poster.querySelectorAll('.add-programme-btn, .add-notice-btn, .add-item-btn, .add-prayer-btn');
+  const daySections = poster.querySelectorAll('.day-section');
   
   editables.forEach(el => el.removeAttribute('contenteditable'));
   buttons.forEach(btn => btn.style.display = 'none');
+  daySections.forEach(section => {
+    section.style.cursor = '';
+    section.removeAttribute('draggable');
+  });
   
   try {
     const canvas = await html2canvas(poster, {
@@ -52,18 +60,97 @@ async function downloadPNG() {
     console.error('Download error:', error);
     alert('Error downloading PNG. Please try again.');
   } finally {
-    // Restore contenteditable and buttons
+    // Restore everything
     editables.forEach(el => el.setAttribute('contenteditable', 'true'));
     buttons.forEach(btn => btn.style.display = '');
+    daySections.forEach(section => {
+      section.style.cursor = 'move';
+      section.setAttribute('draggable', 'true');
+    });
   }
+}
+
+function setupDragAndDrop() {
+  const daySections = document.querySelectorAll('.day-section');
+  
+  daySections.forEach(section => {
+    section.setAttribute('draggable', 'true');
+    section.style.cursor = 'move';
+    
+    section.addEventListener('dragstart', handleDragStart);
+    section.addEventListener('dragover', handleDragOver);
+    section.addEventListener('drop', handleDrop);
+    section.addEventListener('dragend', handleDragEnd);
+    section.addEventListener('dragenter', handleDragEnter);
+    section.addEventListener('dragleave', handleDragLeave);
+  });
+  
+  console.log('✅ Drag & Drop enabled for day sections');
+}
+
+function handleDragStart(e) {
+  draggedElement = this;
+  this.style.opacity = '0.5';
+  e.dataTransfer.effectAllowed = 'move';
+  e.dataTransfer.setData('text/html', this.innerHTML);
+}
+
+function handleDragOver(e) {
+  if (e.preventDefault) {
+    e.preventDefault();
+  }
+  e.dataTransfer.dropEffect = 'move';
+  return false;
+}
+
+function handleDragEnter(e) {
+  if (this !== draggedElement) {
+    this.style.borderTop = '4px solid #667eea';
+  }
+}
+
+function handleDragLeave(e) {
+  this.style.borderTop = '';
+}
+
+function handleDrop(e) {
+  if (e.stopPropagation) {
+    e.stopPropagation();
+  }
+  
+  if (draggedElement !== this) {
+    // Swap the elements
+    const parent = this.parentNode;
+    const draggedIndex = Array.from(parent.children).indexOf(draggedElement);
+    const targetIndex = Array.from(parent.children).indexOf(this);
+    
+    if (draggedIndex < targetIndex) {
+      parent.insertBefore(draggedElement, this.nextSibling);
+    } else {
+      parent.insertBefore(draggedElement, this);
+    }
+    
+    console.log('✅ Day sections reordered');
+  }
+  
+  this.style.borderTop = '';
+  return false;
+}
+
+function handleDragEnd(e) {
+  this.style.opacity = '1';
+  
+  // Remove all drag indicators
+  document.querySelectorAll('.day-section').forEach(section => {
+    section.style.borderTop = '';
+  });
 }
 
 function setupContextMenu() {
   const contextMenu = document.getElementById('contextMenu');
   
-  // Show context menu on right-click
   document.addEventListener('contextmenu', (e) => {
-    const target = e.target.closest('.notice, .prog-badge');
+    const target = e.target.closest('.notice, .prog-badge, .prog-header-box');
     if (target) {
       e.preventDefault();
       currentContextTarget = target;
@@ -73,7 +160,6 @@ function setupContextMenu() {
     }
   });
   
-  // Hide context menu on click anywhere else
   document.addEventListener('click', () => {
     contextMenu.style.display = 'none';
   });
@@ -84,12 +170,10 @@ function changeTheme(theme) {
   
   const isNotice = currentContextTarget.classList.contains('notice');
   const isBadge = currentContextTarget.classList.contains('prog-badge');
+  const isHeaderBox = currentContextTarget.classList.contains('prog-header-box');
   
   if (isNotice) {
-    // Remove all theme classes
     currentContextTarget.classList.remove('notice-shahadat', 'notice-wiladat');
-    
-    // Add new theme
     if (theme === 'shahadat') {
       currentContextTarget.classList.add('notice-shahadat');
     } else if (theme === 'wiladat') {
@@ -98,14 +182,20 @@ function changeTheme(theme) {
   }
   
   if (isBadge) {
-    // Remove all theme classes
     currentContextTarget.classList.remove('prog-badge-shahadat', 'prog-badge-wiladat');
-    
-    // Add new theme
     if (theme === 'shahadat') {
       currentContextTarget.classList.add('prog-badge-shahadat');
     } else if (theme === 'wiladat') {
       currentContextTarget.classList.add('prog-badge-wiladat');
+    }
+  }
+  
+  if (isHeaderBox) {
+    currentContextTarget.classList.remove('prog-header-box-shahadat', 'prog-header-box-wiladat');
+    if (theme === 'shahadat') {
+      currentContextTarget.classList.add('prog-header-box-shahadat');
+    } else if (theme === 'wiladat') {
+      currentContextTarget.classList.add('prog-header-box-wiladat');
     }
   }
   
@@ -134,9 +224,16 @@ function addNoticeBox(day) {
 }
 
 function addScheduleItem(day) {
-  const scheduleDiv = event.target.previousElementSibling;
-  const newItem = document.createElement('p');
-  newItem.contentEditable = 'true';
-  newItem.textContent = '8:00 P.M. New Programme Item';
-  scheduleDiv.appendChild(newItem);
+  const scheduleTable = event.target.previousElementSibling.querySelector('.schedule-table');
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = '<td contenteditable="true">New Item</td><td contenteditable="true">08:00 P.M.</td>';
+  scheduleTable.appendChild(newRow);
+}
+
+function addPrayerRow(day) {
+  const prayerTable = event.target.previousElementSibling;
+  const newRow = document.createElement('tr');
+  newRow.innerHTML = '<td class="pl" contenteditable="true">Prayer Name</td><td class="pt" contenteditable="true">00:00 P.M.</td>';
+  prayerTable.appendChild(newRow);
+  console.log('✅ Prayer row added');
 }
