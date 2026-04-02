@@ -1,4 +1,4 @@
-// KSIJ Poster - FULLY EDITABLE Template with Real QR Code
+// KSIJ Poster - Complete with Logo and Golden Border
 const POSTER_TEMPLATE = `
 <div class="poster" id="poster">
   <style>
@@ -7,12 +7,18 @@ const POSTER_TEMPLATE = `
 .header::before{content:'';position:absolute;inset:0;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='70' height='70' viewBox='0 0 70 70'%3E%3Cg fill='none' stroke='rgba(255,255,255,0.13)' stroke-width='1'%3E%3Cpolygon points='35,4 42,22 60,22 46,34 51,52 35,41 19,52 24,34 10,22 28,22'/%3E%3Cpolygon points='35,14 40,26 53,26 43,34 47,47 35,39 23,47 27,34 17,26 30,26' stroke-width='0.5' opacity='0.5'/%3E%3Ccircle cx='35' cy='35' r='4' stroke-width='0.8'/%3E%3C/g%3E%3C/svg%3E");background-size:70px 70px;pointer-events:none}
 .header::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse at 50% 40%,rgba(255,255,255,0.18) 0%,transparent 65%);pointer-events:none}
 .header-content{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;padding:30px 48px 0;gap:18px}
+.brand-row{display:flex;align-items:center;gap:22px}
+.ksij-logo{width:70px;height:70px;background:#fff;border-radius:50%;border:4px solid #d4a017;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 12px rgba(0,0,0,0.2);flex-shrink:0}
+.ksij-logo svg{width:50px;height:50px}
 .title-block{text-align:center}
 .location{font-size:14px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px}
 .org-name{font-family:'Playfair Display',serif;font-size:42px;font-weight:700;color:#fff;letter-spacing:1px;line-height:1.2;text-shadow:0 2px 12px rgba(0,0,0,0.25)}
-.weekly-wrap{text-align:center;padding-bottom:24px}
+.weekly-wrap{text-align:center;padding-bottom:24px;position:relative}
 .weekly{font-family:'Playfair Display',serif;font-size:78px;font-weight:900;color:#fff;letter-spacing:4px;line-height:1;text-shadow:0 4px 20px rgba(0,0,0,0.35);display:block}
-.programme{font-family:'Playfair Display',serif;font-size:82px;font-weight:700;font-style:italic;color:#f5d155;letter-spacing:2px;line-height:1;text-shadow:0 4px 20px rgba(0,0,0,0.3);display:block;margin-top:-4px}
+.programme{font-family:'Playfair Display',serif;font-size:82px;font-weight:700;font-style:italic;color:#f5d155;letter-spacing:2px;line-height:1;text-shadow:0 4px 20px rgba(0,0,0,0.3);display:block;margin-top:-4px;position:relative}
+.golden-lines{position:absolute;width:100%;top:50%;transform:translateY(-50%);display:flex;justify-content:space-between;align-items:center;padding:0 40px;pointer-events:none}
+.golden-line{flex:1;height:2px;background:linear-gradient(90deg,transparent,#f5d155,transparent);position:relative}
+.golden-star{width:20px;height:20px;fill:#f5d155;filter:drop-shadow(0 0 8px rgba(245,209,85,0.6))}
 .header-arch{position:relative;z-index:2;line-height:0}
 .header-arch svg{display:block;width:100%}
 .date-strip-wrap{margin-top:-2px;padding:0 28px}
@@ -81,13 +87,32 @@ const POSTER_TEMPLATE = `
   
   <div class="header">
     <div class="header-content">
-      <div class="title-block">
-        <div class="location" contenteditable="true">KAMPALA · UGANDA</div>
-        <h1 class="org-name" contenteditable="true">Khoja Shia Ithnasheri Jamat</h1>
+      <div class="brand-row">
+        <div class="ksij-logo">
+          <svg viewBox="0 0 100 100">
+            <circle cx="50" cy="50" r="45" fill="#2a9d4e"/>
+            <path d="M50 20 L55 40 L75 40 L60 52 L65 70 L50 58 L35 70 L40 52 L25 40 L45 40 Z" fill="#fff"/>
+            <text x="50" y="85" text-anchor="middle" font-family="Arial" font-size="12" font-weight="bold" fill="#2a9d4e">KSIJ</text>
+          </svg>
+        </div>
+        <div class="title-block">
+          <div class="location" contenteditable="true">KAMPALA · UGANDA</div>
+          <h1 class="org-name" contenteditable="true">Khoja Shia Ithnasheri Jamat</h1>
+        </div>
       </div>
       <div class="weekly-wrap">
+        <div class="golden-lines">
+          <div class="golden-line"></div>
+          <svg class="golden-star" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6-6.3 4.6 2.3-7-6-4.6h7.6z"/></svg>
+          <div class="golden-line"></div>
+        </div>
         <h2 class="weekly" contenteditable="true">Weekly</h2>
         <h3 class="programme" contenteditable="true">Programme</h3>
+        <div class="golden-lines" style="bottom:0;top:auto">
+          <div class="golden-line"></div>
+          <svg class="golden-star" viewBox="0 0 24 24"><path d="M12 2l2.4 7.4h7.6l-6 4.6 2.3 7-6.3-4.6-6.3 4.6 2.3-7-6-4.6h7.6z"/></svg>
+          <div class="golden-line"></div>
+        </div>
       </div>
     </div>
     <div class="header-arch">
