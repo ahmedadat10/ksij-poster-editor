@@ -1,4 +1,4 @@
-// KSIJ Poster Editor App - With Drag & Drop Day Reordering
+// KSIJ Poster Editor App - Fixed Drag & Drop for Both Columns
 let currentContextTarget = null;
 let draggedElement = null;
 
@@ -71,12 +71,21 @@ async function downloadPNG() {
 }
 
 function setupDragAndDrop() {
-  const daySections = document.querySelectorAll('.day-section');
+  const allDaySections = document.querySelectorAll('.day-section');
   
-  daySections.forEach(section => {
+  allDaySections.forEach(section => {
     section.setAttribute('draggable', 'true');
     section.style.cursor = 'move';
     
+    // Remove any existing listeners first
+    section.removeEventListener('dragstart', handleDragStart);
+    section.removeEventListener('dragover', handleDragOver);
+    section.removeEventListener('drop', handleDrop);
+    section.removeEventListener('dragend', handleDragEnd);
+    section.removeEventListener('dragenter', handleDragEnter);
+    section.removeEventListener('dragleave', handleDragLeave);
+    
+    // Add fresh listeners
     section.addEventListener('dragstart', handleDragStart);
     section.addEventListener('dragover', handleDragOver);
     section.addEventListener('drop', handleDrop);
@@ -85,7 +94,7 @@ function setupDragAndDrop() {
     section.addEventListener('dragleave', handleDragLeave);
   });
   
-  console.log('✅ Drag & Drop enabled for day sections');
+  console.log(`✅ Drag & Drop enabled for ${allDaySections.length} day sections`);
 }
 
 function handleDragStart(e) {
@@ -114,20 +123,42 @@ function handleDragLeave(e) {
 }
 
 function handleDrop(e) {
-  if (e.stopPropagation) {
-    e.stopPropagation();
-  }
+  e.stopPropagation();
+  e.preventDefault();
   
-  if (draggedElement !== this) {
-    // Swap the elements
-    const parent = this.parentNode;
-    const draggedIndex = Array.from(parent.children).indexOf(draggedElement);
-    const targetIndex = Array.from(parent.children).indexOf(this);
+  if (draggedElement !== this && draggedElement && this) {
+    const draggedParent = draggedElement.parentNode;
+    const targetParent = this.parentNode;
     
-    if (draggedIndex < targetIndex) {
-      parent.insertBefore(draggedElement, this.nextSibling);
+    // Check if they're in the same column
+    if (draggedParent === targetParent) {
+      // Same column - swap positions
+      const allSections = Array.from(draggedParent.children);
+      const draggedIndex = allSections.indexOf(draggedElement);
+      const targetIndex = allSections.indexOf(this);
+      
+      if (draggedIndex < targetIndex) {
+        targetParent.insertBefore(draggedElement, this.nextSibling);
+      } else {
+        targetParent.insertBefore(draggedElement, this);
+      }
     } else {
-      parent.insertBefore(draggedElement, this);
+      // Different columns - swap between columns
+      const draggedNext = draggedElement.nextSibling;
+      const targetNext = this.nextSibling;
+      
+      // Swap the elements
+      if (targetNext) {
+        targetParent.insertBefore(draggedElement, targetNext);
+      } else {
+        targetParent.appendChild(draggedElement);
+      }
+      
+      if (draggedNext) {
+        draggedParent.insertBefore(this, draggedNext);
+      } else {
+        draggedParent.appendChild(this);
+      }
     }
     
     console.log('✅ Day sections reordered');
