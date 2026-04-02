@@ -1,0 +1,11 @@
+/* Find this line: */
+.location{font-size:14px;font-weight:700;color:rgba(255,255,255,0.85);letter-spacing:3px;text-transform:uppercase}
+
+/* Replace with: */
+.location{font-size:14px;font-weight:700;color:#f5d155;letter-spacing:3px;text-transform:uppercase;text-shadow:0 2px 8px rgba(212,160,23,0.6)}
+
+/* Find this: */
+.ksij-logo{width:80px;height:80px;flex-shrink:0;position:relative}
+
+/* Replace with: */
+.ksij-logo{width:80px;height:80px;flex-shrink:0;position:relative;border:3px solid #d4a017;border-radius:50%;padding:4px;background:linear-gradient(135deg,#f5d155,#d4a017);box-shadow:0 0 20px rgba(212,160,23,0.6),inset 0 2px 8px rgba(255,255,255,0.3)}
